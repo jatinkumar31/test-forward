@@ -1,6 +1,9 @@
 import logging
 from telegram import Bot, Update
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, CallbackContext
+from http.server import BaseHTTPRequestHandler, HTTPServer
+import threading
+import os
 
 # Configuration - Replace these with your actual values
 BOT_TOKEN = '7180280603:AAG7eOiaGq995fQqm517iqDASd7p93L4ILI'
@@ -31,7 +34,11 @@ def main():
     dispatcher.add_handler(MessageHandler(Filters.chat(username=SOURCE_CHANNEL_USERNAME.lstrip('@')), forward_message))
 
     updater.start_polling()
-    updater.idle()
+
+    # Start HTTP server to keep the service alive
+    server_address = ('', 8000)
+    httpd = HTTPServer(server_address, BaseHTTPRequestHandler)
+    httpd.serve_forever()
 
 if __name__ == '__main__':
     main()
