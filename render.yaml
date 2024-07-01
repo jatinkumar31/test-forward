@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: telegram-bot
+    env: python
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: "python bot.py"
+    envVars:
+      - key: BOT_TOKEN
+        value: 7180280603:AAG7eOiaGq995fQqm517iqDASd7p93L4ILI
+      - key: SOURCE_CHANNEL_USERNAME
+        value: @sktechhub
+      - key: TARGET_GROUP_ID
+        value: -4251437575
